@@ -1,0 +1,22 @@
+version: "3"
+services:
+  server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    image: python-simple-server
+    container_name: python-simple-server-container
+    command: python ./server.py
+    ports:
+      - 5000:8000
+
+  client:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    image: python-simple-client
+    container_name: python-simple-client-container
+    command: python ./client.py
+    network_mode: host
+    depends_on:
+      - server
